@@ -5,6 +5,21 @@
   <%= @chat.title %>
 </p>
 
+<p>
+  <b>Topics Bin<b/>
+    <ul>
+      <% @chat.topics.each do |topic| %>
+        <li><%= topic.title %></li>
+      <% end %>
+    </ul>
+</p>
 
-<%= link_to 'Edit', edit_chat_path(@chat) %> |
-<%= link_to 'Back', chats_path %>
+<%= form_for :topic, :url => '/topics' do |f| %>
+  <%= f.hidden_field :chat_id, :value => @chat.id %>
+  <%= f.label :add_question %>:  <%= f.text_field :title %>
+  <%= f.submit %>
+<% end %>
+
+<br />
+<br />
+<%= link_to 'All Chats', chats_path %>
