@@ -12,6 +12,7 @@
   
   channel.bind('update-bin', function(data) {
     $('#topics-bin').html(data.html);
+    $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
   });
 </script>
 
@@ -19,7 +20,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
+<p class="title">
   <b>Title:</b>
   <%= @chat.title %>
 </p>
