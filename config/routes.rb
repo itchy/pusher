@@ -1,7 +1,9 @@
 SharedBin::Application.routes.draw do
   resources :chats
   root :to => 'chats#index'
+  match 'topics/hello_world' => 'topics#hello_world'
   resources :topics
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
