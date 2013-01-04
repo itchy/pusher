@@ -1,3 +1,22 @@
+<script type="text/javascript">
+  // Enable pusher logging - don't include this in production
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) window.console.log(message);
+  };
+
+  // Flash fallback logging - don't include this in production
+  WEB_SOCKET_DEBUG = true;
+
+  var pusher = new Pusher('67d7d682ac541779b47a');
+  var channel = pusher.subscribe('<%= "chat-#{@chat.id}" %>');
+  
+  channel.bind('update-bin', function(data) {
+    $('#topics-bin').html(data.html);
+  });
+</script>
+
+
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -5,16 +24,9 @@
   <%= @chat.title %>
 </p>
 
-<p>
-  <b>Topics Bin<b/>
-    <ul>
-      <% @chat.topics.each do |topic| %>
-        <li><%= topic.title %></li>
-      <% end %>
-    </ul>
-</p>
+<%= render 'topics/bin', :topics => @chat.topics %>
 
-<%= form_for :topic, :url => '/topics' do |f| %>
+<%= form_for(:topic, :remote => true, :url => '/topics', :html => {:id => "topic-form"} ) do |f| %>
   <%= f.hidden_field :chat_id, :value => @chat.id %>
   <%= f.label :add_question %>:  <%= f.text_field :title %>
   <%= f.submit %>

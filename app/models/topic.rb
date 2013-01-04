@@ -4,6 +4,10 @@ class Topic < ActiveRecord::Base
   validates :title, :presence => true, :length => { :minimum => 3 }
   validate :validate_chat_existance
   
+  def new?
+    false
+  end
+  
   private
     def validate_chat_existance
       errors.add(:chat_id, "Cannot be blank.") unless (chat_id)
