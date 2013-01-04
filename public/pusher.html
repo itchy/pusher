@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="http://js.pusher.com/1.12/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) window.console.log(message);
+    };
+
+    // Flash fallback logging - don't include this in production
+    WEB_SOCKET_DEBUG = true;
+
+    var pusher = new Pusher('67d7d682ac541779b47a');
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+      alert(data);
+    });
+  </script>
+</head>
+
+<!--  type the following into your console to send yourself a message 
+
+curl -H "Content-Type: application/json" -d "hello world" \
+"http://api.pusherapp.com/apps/34712/channels/test_channel/events?"\
+"name=my_event&"\
+"body_md5=5eb63bbbe01eeed093cb22bb8f5acdc3&"\
+"auth_version=1.0&"\
+"auth_key=67d7d682ac541779b47a&"\
+"auth_timestamp=1357274054&"\
+"auth_signature=339bcbd7089629e55a5c68dcf02c6e3c70a520c9b4cf18bff828e135b2ffc21a&"
+
+-->
