@@ -3,7 +3,7 @@
     <b>Topics Bin<b/>
       <ul>
         <% topics.each do |topic| %>
-          <li class="new"><%= topic.title %></li>
+          <li <%= "class=new" if topic.new? %> ><%= topic.title %></li>
         <% end %>
       </ul>
   </p>

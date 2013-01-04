@@ -1,11 +1,12 @@
 class Topic < ActiveRecord::Base
+  attr_accessor :new
   attr_accessible :chat_id, :title # :rating, :status
   belongs_to :chat
   validates :title, :presence => true, :length => { :minimum => 3 }
   validate :validate_chat_existance
   
   def new?
-    false
+    @new
   end
   
   private

@@ -10,6 +10,8 @@ class TopicsController < ApplicationController
     @chat = Chat.find(topic.chat_id)
     topic.save
     @topics = @chat.topics
+    # set new to true for this topic while it is in memory
+    @topics.map { |t| t.new = true if t.id == topic.id }
     respond_to do |format|
       format.html { render  'chats/show' }
       format.js { 
