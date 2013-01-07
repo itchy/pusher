@@ -14,25 +14,39 @@
     $('#topics-bin').html(data.html);
     $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
   });
+  
+  channel.bind('update-active', function(data) {
+    $('#topic-active').html(data.html);
+    // $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
+  });
 </script>
 
 
-
-<p id="notice"><%= notice %></p>
+<p><%= link_to 'All Chats', chats_path %></p>
 
 <p class="title">
   <b>Title:</b>
   <%= @chat.title %>
 </p>
 
-<%= render 'topics/bin', :topics => @chat.topics %>
+<p id="notice"><%= notice %></p>
 
+<%= render 'topics/bin', :topics => @chat.topics.unaddressed %>
 <%= form_for(:topic, :remote => true, :url => '/topics', :html => {:id => "topic-form"} ) do |f| %>
   <%= f.hidden_field :chat_id, :value => @chat.id %>
   <%= f.label :add_question %>:  <%= f.text_field :title %>
   <%= f.submit %>
 <% end %>
+<br />
+<br />
 
-<br />
-<br />
-<%= link_to 'All Chats', chats_path %>
+<% active_topic = @chat.topics.active %>
+<% if active_topic %>
+  <%= render 'topics/active', :topic => active_topic %>
+  <%= form_for(:post, :remote => true, :url => '/posts', :html => {:id => "post-form"} ) do |f| %>
+    <%= f.hidden_field :topic_id, :value => active_topic.id %>
+    <%= f.label :add_comment %>:  <%= f.text_field :content %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+

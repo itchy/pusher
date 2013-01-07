@@ -1,0 +1,10 @@
+<div id='topic-active'>
+  <p>
+    <b><%= topic.title%><b/>
+      <ul>
+        <% topic.posts.each do |post| %>
+          <li><%= post.content %></li>
+        <% end %>
+      </ul>
+  </p>
+</div>
