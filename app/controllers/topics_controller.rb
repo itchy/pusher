@@ -17,11 +17,19 @@ class TopicsController < ApplicationController
       format.js { 
         content = render_to_string :partial => 'topics/bin', :locals => { :topics => @unaddressed_topics }
         Pusher["chat-#{@chat.id}"].trigger('update-bin', {:message => 'hello world', :html=> content })
-        content = render_to_string :partial => 'topics/active', :locals => { :topic => @topic }
+
+
+        content = render_to_string :partial => 'topics/active', :locals => { :topic => @topic }        
         Pusher["chat-#{@chat.id}"].trigger('update-active', {:message => 'hello world', :html=> content })
-        content = render_to_string :partial => 'topics/addressed', :locals => { :topics => @addressed_topics }
+        content = render_to_string :partial => 'posts/form', :locals => { :topic => @topic }        
+        Pusher["chat-#{@chat.id}"].trigger('update-post-form', {:message => 'hello world', :html=> content })
+        form = content
+        
+        
+        content = render_to_string :partial => 'topics/addressed', :locals => { :topics => @addressed_topics }        
         Pusher["chat-#{@chat.id}"].trigger('update-addressed', {:message => 'hello world', :html=> content })
-        render :text => "content pushed through pusher"
+
+        render :text => form # "content pushed through pusher"
       }
     end
   end

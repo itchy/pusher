@@ -17,8 +17,14 @@
   
   channel.bind('update-active', function(data) {
     $('#topic-active').html(data.html);
-    // $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
   });
+  
+  channel.bind('update-post-form', function(data) {
+    $('#new-post-form').html(data.html);
+  });
+  
+  
+  
   channel.bind('update-addressed', function(data) {
     $('#topics-addressed').html(data.html);
     // $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
@@ -44,7 +50,10 @@
 <br />
 <br />
 
-<%= render 'topics/active', :topic =>  @chat.topics.active %>
+<% active_topic = @chat.topics.active %>
+
+<%= render 'topics/active', :topic =>  active_topic %>
+<%= render 'posts/form', :topic =>  active_topic %>
 
 <br />
 <br />

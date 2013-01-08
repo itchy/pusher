@@ -1,0 +1,9 @@
+<div id="new-post-form">
+  <% if topic %>
+    <%= form_for(:post, :remote => true, :url => '/posts', :html => {:id => "post-form"} ) do |f| %>
+      <%= f.hidden_field :topic_id, :value => topic.id %>
+      <%= f.label :add_comment %>:  <%= f.text_field :content %>
+      <%= f.submit %>
+    <% end %>
+  <% end %>
+</div>
