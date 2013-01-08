@@ -2,6 +2,7 @@ SharedBin::Application.routes.draw do
   resources :chats
   root :to => 'chats#index'
   match 'topics/hello_world' => 'topics#hello_world'
+  match 'topics/activate/:id' => 'topics#discuss', :as => :activate
   resources :topics
   resources :posts
   

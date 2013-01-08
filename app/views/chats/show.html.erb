@@ -19,6 +19,10 @@
     $('#topic-active').html(data.html);
     // $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
   });
+  channel.bind('update-addressed', function(data) {
+    $('#topics-addressed').html(data.html);
+    // $('#topics-bin li.new').last().animate({'backgroundColor' : '#D9EDF7'}, 700).delay(100).animate({'backgroundColor' : '#FFF'}, 700);
+  });
 </script>
 
 
@@ -40,13 +44,9 @@
 <br />
 <br />
 
-<% active_topic = @chat.topics.active %>
-<% if active_topic %>
-  <%= render 'topics/active', :topic => active_topic %>
-  <%= form_for(:post, :remote => true, :url => '/posts', :html => {:id => "post-form"} ) do |f| %>
-    <%= f.hidden_field :topic_id, :value => active_topic.id %>
-    <%= f.label :add_comment %>:  <%= f.text_field :content %>
-    <%= f.submit %>
-  <% end %>
-<% end %>
+<%= render 'topics/active', :topic =>  @chat.topics.active %>
+
+<br />
+<br />
+<%= render 'topics/addressed', :topics => @chat.topics.addressed %>
 
